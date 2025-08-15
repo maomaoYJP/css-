@@ -21,7 +21,7 @@
         </ul>
       </div>
     </div>
-    <div class="flex-1 bg-blue-200">
+    <div class="flex-1">
       <router-view />
     </div>
   </div>

@@ -1,5 +1,5 @@
-import Test from "@/view/css-practice/test.vue";
 import Index from "@/view/index/index.vue";
+import MesmerizingDots from "@/view/css-practice/MesmerizingDots.vue";
 
 export default [
   {
@@ -8,8 +8,8 @@ export default [
     meta: { title: "首页", show: false },
   },
   {
-    path: "/test",
-    component: Test,
-    meta: { title: "测试" },
+    path: "/MesmerizingDots",
+    component: MesmerizingDots,
+    meta: { title: "MesmerizingDots" },
   },
 ];
