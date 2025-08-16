@@ -12,4 +12,9 @@ export default [
     component: MesmerizingDots,
     meta: { title: "MesmerizingDots" },
   },
+  {
+    path: "/InteractiveDotsGrid",
+    component: () => import("@/view/css-practice/InteractiveDotsGrid.vue"),
+    meta: { title: "Interactive Dots Grid" },
+  },
 ];
