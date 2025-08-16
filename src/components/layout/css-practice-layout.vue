@@ -1,14 +1,16 @@
 <template>
   <div class="w-full h-full flex relative">
     <div class="flex-1 overflow-hidden">
-      <transition name="slide">
-        <router-view :key="$route.fullPath" />
-      </transition>
+      <router-view v-slot="{ Component }">
+        <transition name="slide">
+          <component :is="Component" :key="$route.fullPath" />
+        </transition>
+      </router-view>
     </div>
     <div
       class="bg-blue-100 h-20 max-w-4/5 absolute bottom-4 left-1/2 -translate-x-1/2 z-2"
     >
-      <MacDocker />
+      <MacDocker :routeData="cssPracticeRoutes" />
     </div>
   </div>
 </template>
@@ -16,12 +18,6 @@
 <script setup lang="ts">
 import cssPracticeRoutes from "@/router/css-practice";
 import MacDocker from "@/components/macDocker.vue";
-import { useRouter } from "vue-router";
-const router = useRouter();
-
-const cssPracticeRoutesFiltered = cssPracticeRoutes.filter(
-  (route) => route.meta?.show !== false
-);
 </script>
 
 <style scoped>

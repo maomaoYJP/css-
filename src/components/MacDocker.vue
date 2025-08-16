@@ -9,18 +9,18 @@
         class="w-full h-full flex"
         :ref="(el) => card.element = el as HTMLElement | null"
       >
-        <div class="flex">
+        <router-link :to="card.path" class="flex">
           <div
             :style="{
               height: `${card.scale * 100}%`,
               transform: `translateY(${(1 - card.scale) * 20}%)`,
             }"
-            class="self-end cursor-pointer h-full aspect-square bg-red-100 flex items-center justify-center"
+            class="overflow-hidden self-end cursor-pointer h-full aspect-square bg-red-100 flex items-center justify-center"
             style="transition: transform 0.15s ease-out, height 0.15s ease-out"
           >
-            {{ card.id }}
+            {{ card.title }}
           </div>
-        </div>
+        </router-link>
 
         <div
           class="w-2"
@@ -37,6 +37,18 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 
+interface RouteItem {
+  path: string; // 路由路径
+  meta?: {
+    title?: string; // 路由标题
+    show?: boolean; // 是否显示在Docker中
+  };
+}
+
+const props = defineProps<{
+  routeData: RouteItem[];
+}>();
+
 const maxScale = 1.5;
 const minScale = 1;
 const scaleRange = 200; // 缩放范围
@@ -44,18 +56,25 @@ const scaleRange = 200; // 缩放范围
 interface Card {
   id: number;
   title: string;
+  path: string;
   scale: number;
   element: HTMLElement | null;
   centerX: number; // 缓存元素中心点X坐标
 }
 
-const cards = ref<Card[]>([
-  { id: 1, title: "Card 1", scale: minScale, element: null, centerX: 0 },
-  { id: 2, title: "Card 2", scale: minScale, element: null, centerX: 0 },
-  { id: 3, title: "Card 3", scale: minScale, element: null, centerX: 0 },
-  { id: 4, title: "Card 4", scale: minScale, element: null, centerX: 0 },
-  { id: 5, title: "Card 5", scale: minScale, element: null, centerX: 0 },
-]);
+const cards = ref<Card[]>([]);
+
+// routeData映射到cards
+cards.value.push(
+  ...props.routeData.map((route, index) => ({
+    id: index + 1,
+    title: route.meta?.title || `Card ${index + 1}`,
+    scale: minScale,
+    element: null,
+    centerX: 0,
+    path: route.path,
+  }))
+);
 
 onMounted(() => {
   cards.value.forEach((card) => {
