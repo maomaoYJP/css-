@@ -15,7 +15,7 @@
               height: `${card.scale * 100}%`,
               transform: `translateY(${(1 - card.scale) * 20}%)`,
             }"
-            class="overflow-hidden self-end cursor-pointer h-full aspect-square bg-red-100 flex items-center justify-center"
+            class="whitespace-nowrap text-ellipsis overflow-hidden self-end cursor-pointer h-full aspect-square bg-red-100 flex items-center justify-center"
             style="transition: transform 0.15s ease-out, height 0.15s ease-out"
           >
             {{ card.title }}
