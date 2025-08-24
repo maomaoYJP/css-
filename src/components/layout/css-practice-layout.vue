@@ -7,17 +7,14 @@
         </transition>
       </router-view>
     </div>
-    <div
-      class="bg-blue-100 h-20 max-w-4/5 absolute bottom-4 left-1/2 -translate-x-1/2 z-2"
-    >
-      <MacDocker :routeData="cssPracticeRoutes" />
-    </div>
+
+    <MacDocker :routeData="cssPracticeRoutes" />
   </div>
 </template>
 
 <script setup lang="ts">
 import cssPracticeRoutes from "@/router/css-practice";
-import MacDocker from "@/components/macDocker.vue";
+import MacDocker from "@/components/MacDocker.vue";
 </script>
 
 <style scoped>

@@ -1,36 +1,49 @@
 <template>
   <div
-    class="w-full h-full p-2 pr-0 flex items-center justify-center"
-    @mousemove="handleMouseMove"
-    @mouseleave="handleMouseLeave"
+    class="max-w-4/5 w-full h-40 absolute bottom-4 left-1/2 -translate-x-1/2"
   >
-    <template v-for="card in cards" :key="card.id">
+    <div
+      class="absolute h-20 w-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-200"
+    ></div>
+    <div
+      class="h-full flex items-center overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+    >
       <div
-        class="w-full h-full flex"
-        :ref="(el) => card.element = el as HTMLElement | null"
+        class="w-full h-20 p-2 pr-0 flex items-center"
+        @mousemove="handleMouseMove"
+        @mouseleave="handleMouseLeave"
       >
-        <router-link :to="card.path" class="flex">
+        <template v-for="card in cards" :key="card.id">
           <div
-            :style="{
-              height: `${card.scale * 100}%`,
-              transform: `translateY(${(1 - card.scale) * 20}%)`,
-            }"
-            class="whitespace-nowrap text-ellipsis overflow-hidden self-end cursor-pointer h-full aspect-square bg-red-100 flex items-center justify-center"
-            style="transition: transform 0.15s ease-out, height 0.15s ease-out"
+            class="w-full h-full flex"
+            :ref="(el) => card.element = el as HTMLElement | null"
           >
-            {{ card.title }}
-          </div>
-        </router-link>
+            <router-link :to="card.path" class="flex">
+              <div
+                :style="{
+                  height: `${card.scale * 100}%`,
+                  transform: `translateY(${(1 - card.scale) * 20}%)`,
+                }"
+                class="p-2 whitespace-nowrap overflow-hidden self-end cursor-pointer h-full aspect-square bg-red-100 flex items-center justify-center"
+                style="
+                  transition: transform 0.15s ease-out, height 0.15s ease-out;
+                "
+              >
+                {{ card.title }}
+              </div>
+            </router-link>
 
-        <div
-          class="w-2"
-          :style="{
-            width: `${card.scale * 8}px`,
-          }"
-          style="transition: width 0.15s ease-out"
-        ></div>
+            <div
+              class="w-2 z-1"
+              :style="{
+                width: `${card.scale * 8}px`,
+              }"
+              style="transition: width 0.15s ease-out"
+            ></div>
+          </div>
+        </template>
       </div>
-    </template>
+    </div>
   </div>
 </template>
 
@@ -77,21 +90,26 @@ cards.value.push(
 );
 
 onMounted(() => {
+  updateCenterPositions();
+});
+
+const updateCenterPositions = () => {
   cards.value.forEach((card) => {
     if (card.element) {
       const rect = card.element.getBoundingClientRect();
       card.centerX = rect.left + rect.width / 2;
     }
   });
-});
+};
 
 const handleMouseMove = (e: MouseEvent) => {
   const scaleCurve = getScaleCurve(e.clientX, scaleRange, minScale, maxScale);
   cards.value.forEach((card) => {
     const newScale = scaleCurve(card.centerX);
     // 只有当缩放值有明显变化时才更新，减少不必要的重渲染
-    if (Math.abs(card.scale - newScale) > 0.01) {
+    if (Math.abs(card.scale - newScale) > 0.05) {
       card.scale = newScale;
+      updateCenterPositions();
     }
   });
 };

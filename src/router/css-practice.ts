@@ -17,4 +17,49 @@ export default [
     component: () => import("@/view/css-practice/InteractiveDotsGrid.vue"),
     meta: { title: "Interactive Dots Grid" },
   },
+  {
+    path: "/InteractiveDotsGrid",
+    component: () => import("@/view/css-practice/InteractiveDotsGrid.vue"),
+    meta: { title: "Interactive Dots Grid" },
+  },
+  {
+    path: "/InteractiveDotsGrid",
+    component: () => import("@/view/css-practice/InteractiveDotsGrid.vue"),
+    meta: { title: "Interactive Dots Grid" },
+  },
+  {
+    path: "/InteractiveDotsGrid",
+    component: () => import("@/view/css-practice/InteractiveDotsGrid.vue"),
+    meta: { title: "Interactive Dots Grid" },
+  },
+  {
+    path: "/InteractiveDotsGrid",
+    component: () => import("@/view/css-practice/InteractiveDotsGrid.vue"),
+    meta: { title: "Interactive Dots Grid" },
+  },
+  {
+    path: "/InteractiveDotsGrid",
+    component: () => import("@/view/css-practice/InteractiveDotsGrid.vue"),
+    meta: { title: "Interactive Dots Grid" },
+  },
+  {
+    path: "/InteractiveDotsGrid",
+    component: () => import("@/view/css-practice/InteractiveDotsGrid.vue"),
+    meta: { title: "Interactive Dots Grid" },
+  },
+  {
+    path: "/InteractiveDotsGrid",
+    component: () => import("@/view/css-practice/InteractiveDotsGrid.vue"),
+    meta: { title: "Interactive Dots Grid" },
+  },
+  {
+    path: "/InteractiveDotsGrid",
+    component: () => import("@/view/css-practice/InteractiveDotsGrid.vue"),
+    meta: { title: "Interactive Dots Grid" },
+  },
+  {
+    path: "/InteractiveDotsGrid",
+    component: () => import("@/view/css-practice/InteractiveDotsGrid.vue"),
+    meta: { title: "Interactive Dots Grid" },
+  },
 ];
