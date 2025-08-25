@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="max-w-4/5 w-full h-40 absolute bottom-4 left-1/2 -translate-x-1/2"
-  >
+  <div class="max-w-4/5 h-40 absolute bottom-4 left-1/2 -translate-x-1/2">
     <div
       class="absolute h-20 w-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-200"
     ></div>
@@ -9,7 +7,7 @@
       class="h-full flex items-center overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
       <div
-        class="w-full h-20 p-2 pr-0 flex items-center"
+        class="h-20 p-2 pr-0 flex items-center"
         @mousemove="handleMouseMove"
         @mouseleave="handleMouseLeave"
       >
@@ -24,6 +22,7 @@
                   height: `${card.scale * 100}%`,
                   transform: `translateY(${(1 - card.scale) * 20}%)`,
                 }"
+                :title="card.title"
                 class="p-2 whitespace-nowrap overflow-hidden self-end cursor-pointer h-full aspect-square bg-red-100 flex items-center justify-center"
                 style="
                   transition: transform 0.15s ease-out, height 0.15s ease-out;
