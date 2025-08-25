@@ -1,7 +1,7 @@
 <template>
   <div class="h-full w-full">
     <div
-      class="w-100 h-100 bg-blue-100 mx-auto p-4 flex flex-wrap gap-6 items-center"
+      class="w-100 h-100 mt-20 mx-auto p-4 flex flex-wrap gap-6 items-center"
       @mousemove="handleMouseMove"
       @mouseleave="() => dots.forEach((dot) => (dot.scale = 1))"
     >
