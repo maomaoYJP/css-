@@ -16,7 +16,7 @@
             class="w-full h-full flex"
             :ref="(el) => card.element = el as HTMLElement | null"
           >
-            <router-link :to="card.path" class="flex">
+            <div @click="handleClick(card.path)" class="flex">
               <div
                 :style="{
                   height: `${card.scale * 100}%`,
@@ -30,7 +30,7 @@
               >
                 {{ card.title }}
               </div>
-            </router-link>
+            </div>
 
             <div
               class="w-2 z-1"
@@ -59,6 +59,10 @@ interface RouteItem {
 
 const props = defineProps<{
   routeData: RouteItem[];
+}>();
+
+const emit = defineEmits<{
+  (e: "changeRoute", path: string): void;
 }>();
 
 const maxScale = 1.5;
@@ -91,6 +95,14 @@ cards.value.push(
 onMounted(() => {
   updateCenterPositions();
 });
+
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+const handleClick = (path: string) => {
+  router.push(path);
+  emit("changeRoute", path);
+};
 
 const updateCenterPositions = () => {
   cards.value.forEach((card) => {
