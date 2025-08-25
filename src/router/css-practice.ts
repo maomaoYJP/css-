@@ -17,4 +17,9 @@ export default [
     component: () => import("@/view/css-practice/InteractiveDotsGrid.vue"),
     meta: { title: "Interactive Dots Grid" },
   },
+  {
+    path: "/ToastCatcherGame",
+    component: () => import("@/view/css-practice/ToastCatcherGame.vue"),
+    meta: { title: "Toast Catcher Game" },
+  },
 ];
