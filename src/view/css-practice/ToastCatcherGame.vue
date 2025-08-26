@@ -12,8 +12,8 @@
       <div ref="container" class="flex-1 bg-[#7DC8CF] mt-2 relative">
         <div
           :style="{
-            bottom: toast.position.y + 'px',
-            left: toast.position.x + 'px',
+            bottom: toastInstance?.position.y + 'px',
+            left: toastInstance?.position.x + 'px',
           }"
           class="absolute h-10 w-10 bg-[#FEBB63]"
         ></div>
@@ -28,81 +28,85 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onUnmounted } from "vue";
+import { ref, reactive, onUnmounted, onMounted } from "vue";
 
 const container = ref<HTMLElement | null>(null);
-const toast = ref({
-  speed: {
-    x: 2,
-    y: 2,
-  },
-  position: {
-    x: 0,
-    y: 0,
-  },
-});
 
-let animationFrameId: number | null = null;
+class Toast {
+  speed = reactive({ x: 0, y: 0 });
+  position = reactive({ x: 0, y: 0 });
 
-// 清理动画 - 防止内存泄漏
-const cancelAnimation = () => {
-  if (animationFrameId) {
-    cancelAnimationFrame(animationFrameId);
-    animationFrameId = null;
+  private container: HTMLElement;
+  private animationFrameId: number | null = null;
+
+  constructor(container: HTMLElement) {
+    this.container = container;
   }
-};
 
-const launch = () => {
-  cancelAnimation();
-  initToast();
-  moveToast();
-};
+  init() {
+    const containerWidth = this.container.clientWidth;
+    this.position.x = Math.random() * (containerWidth - 40);
+    this.position.y = -40;
 
-const initToast = () => {
-  if (!container.value) return;
-  const containerWidth = container.value.clientWidth;
-  toast.value.position.x = Math.random() * (containerWidth - 40);
-  toast.value.position.y = -40;
-
-  // 初始化速度
-  toast.value.speed.y = Math.random() * 20 + 1;
-  if (toast.value.position.x > containerWidth / 2) {
-    toast.value.speed.x = -(Math.random() * 2 + 1);
-  } else {
-    toast.value.speed.x = Math.random() * 2 + 1;
+    // 初始化速度
+    this.speed.y = Math.random() * 20 + 1;
+    if (this.position.x > containerWidth / 2) {
+      this.speed.x = -(Math.random() * 2 + 1);
+    } else {
+      this.speed.x = Math.random() * 2 + 1;
+    }
   }
-};
 
-const moveToast = () => {
-  if (!container.value) return;
-  const containerWidth = container.value.clientWidth;
+  start() {
+    this.stop();
+    this.animate();
+  }
 
-  //   使用requestAnimationFrame实现动画
-  const step = () => {
+  stop() {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = null;
+    }
+  }
+
+  private animate = () => {
+    const containerWidth = this.container.clientWidth;
+
     // 位置到容器外
     if (
-      toast.value.position.x < -40 ||
-      toast.value.position.x > containerWidth ||
-      toast.value.position.y < -40
+      this.position.x < -40 ||
+      this.position.x > containerWidth ||
+      this.position.y < -40
     ) {
-      initToast();
-      requestAnimationFrame(step);
+      this.init();
+      this.animationFrameId = requestAnimationFrame(this.animate);
       return;
     }
     // 更新位置
-    toast.value.position.x += toast.value.speed.x;
-    toast.value.position.y += toast.value.speed.y;
+    this.position.x += this.speed.x;
+    this.position.y += this.speed.y;
 
     // 更新速度
-    toast.value.speed.y -= 0.3; // 模拟重力
+    this.speed.y -= 0.3; // 模拟重力
 
-    requestAnimationFrame(step);
+    this.animationFrameId = requestAnimationFrame(this.animate);
   };
+}
 
-  animationFrameId = requestAnimationFrame(step);
+const toastInstance = ref<Toast | null>(null);
+
+onMounted(() => {
+  if (container.value) {
+    toastInstance.value = new Toast(container.value);
+    toastInstance.value.init();
+  }
+});
+
+const launch = () => {
+  toastInstance.value?.start();
 };
 
 onUnmounted(() => {
-  cancelAnimation();
+  toastInstance.value?.stop();
 });
 </script>
