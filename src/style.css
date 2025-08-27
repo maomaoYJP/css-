@@ -3,3 +3,32 @@
 * {
   box-sizing: border-box;
 }
+
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* 滚动条显示状态 */
+.scrollbar-show::-webkit-scrollbar {
+  display: block;
+  width: 6px;
+}
+
+.scrollbar-show::-webkit-scrollbar-track {
+  background: theme("colors.gray.100");
+  border-radius: 3px;
+}
+
+.scrollbar-show::-webkit-scrollbar-thumb {
+  background-color: theme("colors.gray.400");
+  border-radius: 3px;
+}
+
+.scrollbar-show::-webkit-scrollbar-thumb:hover {
+  background-color: theme("colors.gray.500");
+}
