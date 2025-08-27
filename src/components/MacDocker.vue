@@ -100,7 +100,18 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 const handleClick = (path: string) => {
-  router.push(path);
+  const parentRoutes = router
+    .getRoutes()
+    .filter(
+      (route) =>
+        route.children &&
+        route.children.length > 0 &&
+        route.path === "/css-practice"
+    )[0];
+  if (!parentRoutes) return;
+
+  const fullPath = path === "/" ? path : parentRoutes.path + ("/" + path);
+  router.push(fullPath);
   emit("changeRoute", path);
 };
 
