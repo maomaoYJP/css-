@@ -11,4 +11,9 @@ export default [
     component: Index,
     meta: { title: "首页" },
   },
+  {
+    path: "multi-row-or-column",
+    component: () => import("@/view/css-simple/multi-row-or-column.vue"),
+    meta: { title: "多行或多列等分布局" },
+  },
 ];

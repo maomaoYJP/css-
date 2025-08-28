@@ -10,16 +10,19 @@
           :key="index"
           class="text-center list-none px-3 py-2 rounded-md text-m text-gray-700 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
         >
-          {{ route.meta.title }}
+          <RouterLink :to="`/css-simple/${route.path || ''}`">{{
+            route.meta.title
+          }}</RouterLink>
         </li>
       </div>
     </div>
 
-    <div class="flex-1 p-2">1</div>
+    <div class="flex-1 p-2">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import routes from "@/router/css-simple";
-console.log(routes);
 </script>
