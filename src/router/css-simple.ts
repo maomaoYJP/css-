@@ -16,4 +16,9 @@ export default [
     component: () => import("@/view/css-simple/multi-row-or-column.vue"),
     meta: { title: "多行或多列等分布局" },
   },
+  {
+    path: "row-col-center",
+    component: () => import("@/view/css-simple/row-col-center.vue"),
+    meta: { title: "水平垂直居中" },
+  },
 ];
