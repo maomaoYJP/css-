@@ -21,4 +21,9 @@ export default [
     component: () => import("@/view/css-simple/row-col-center.vue"),
     meta: { title: "水平垂直居中" },
   },
+  {
+    path: "holy-grail-layout",
+    component: () => import("@/view/css-simple/holy-grail-layout.vue"),
+    meta: { title: "圣杯布局" },
+  },
 ];

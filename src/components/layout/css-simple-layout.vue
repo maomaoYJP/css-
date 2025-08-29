@@ -1,7 +1,9 @@
 <template>
   <!-- 左右布局，左边目录，右边内容区 -->
   <div class="h-screen w-full flex">
-    <div class="w-50 border-r border-r-gray-200 flex flex-col items-center p-2">
+    <div
+      class="min-w-50 w-50 border-r border-r-gray-200 flex flex-col items-center p-2"
+    >
       <div class="pb-2 text-2xl">目录</div>
       <!-- 目录项 -->
       <div class="w-full overflow-y-auto scrollbar-hide">
@@ -17,7 +19,7 @@
       </div>
     </div>
 
-    <div class="flex-1 p-2">
+    <div class="flex-1 p-2 overflow-auto">
       <router-view />
     </div>
   </div>
